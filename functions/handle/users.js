@@ -1,4 +1,4 @@
-const {db} = require("../utility/admin");
+const {admin, db} = require("../utility/admin");
 const config = require("../utility/config");
 const firebase = require("firebase");
 const {validateSignupData, validateLoginData} = require("../utility/valodators");
@@ -13,8 +13,10 @@ exports.signUp = (req, res) => {
         handle: req.body.handle
     };
 
-    const {valid,errors} = validateSignupData(newUser);
+    const {valid, errors} = validateSignupData(newUser);
     if (!valid) return res.status(400).json(errors);
+
+    let noImg = 'unphoto.png';
 
     let tokenId, userId;
 
@@ -38,6 +40,7 @@ exports.signUp = (req, res) => {
                 handle: newUser.handle,
                 email: newUser.email,
                 time: new Date().toISOString(),
+                imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
                 userId
             };
             return db.doc(`/users/${newUser.handle}`).set(userCredentials)
@@ -61,17 +64,71 @@ exports.logIn = (req, res) => {
         password: req.body.password
     };
 
-    const {valid,errors} = validateLoginData(user);
+    const {valid, errors} = validateLoginData(user);
     if (!valid) return res.status(400).json(errors);
 
     firebase.auth().signInWithEmailAndPassword(user.email, user.password)
         .then(data => data.user.getIdToken())
         .then(token => res.json({token}))
-        .catch(err =>{
+        .catch(err => {
             console.error(err);
-            if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-email'){
-                return res.status(401).json({general:"Ошибка аутентификации, попробуйте снова"})
+            if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-email') {
+                return res.status(401).json({general: "Ошибка аутентификации, попробуйте снова"})
             }
-            return res.status(500).json({error:err.code})
+            return res.status(500).json({error: err.code})
         })
+};
+
+exports.uploadImage = (req, res) => {
+    const BusBoy = require("busboy");
+    const path = require("path");
+    const os = require("os");
+    const fs = require("fs");
+
+    const busboy = new BusBoy({headers: req.headers});
+    let imageToBeUploaded = {};
+    let imageFileName;
+
+    busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+        console.log(fieldname, file, filename, encoding, mimetype);
+        if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
+            return res.status(400).json({error: "\n" + "Отправлен неверный тип файла"});
+        }
+
+        const imageExtension = filename.split(".")[filename.split(".").length - 1];
+        // 32756238461724837.png
+        imageFileName = `${Math.round(
+            Math.random() * 1000000000000
+        ).toString()}.${imageExtension}`;
+        const filepath = path.join(os.tmpdir(), imageFileName);
+        imageToBeUploaded = {filepath, mimetype};
+        file.pipe(fs.createWriteStream(filepath));
+    });
+    busboy.on("finish", () => {
+        admin
+            .storage()
+            .bucket()
+            .upload(imageToBeUploaded.filepath, {
+                resumable: false,
+                metadata: {
+                    metadata: {
+                        contentType: imageToBeUploaded.mimetype
+                    },
+                },
+            })
+            .then(() => {
+                // Append token to url
+                const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${imageFileName}?alt=media`;
+                return db.doc(`/users/${req.user.handle}`).update({imageUrl});
+            })
+            .then(() => {
+                return res.json({message: "Картинка загружена"});
+            })
+            .catch((err) => {
+                console.error(err);
+                return res.status(500).json({error: "Чо-то пошло не так!"});
+            });
+    });
+    busboy.end(req.rawBody);
+
 };

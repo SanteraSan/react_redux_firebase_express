@@ -1,14 +1,10 @@
 const {getAllScreams, postOneScream} = require( "./handle/screams");
-const {logIn, signUp} = require("./handle/users");
+const {logIn, signUp, uploadImage} = require("./handle/users");
 const FBAuth = require("./utility/fbAuth");
 
 const functions = require('firebase-functions');
 const express = require('express');
 const app = express();
-
-//
-// const firebase = require("firebase");
-// firebase.initializeApp(firebaseConfig);
 
 //Scream routs
 
@@ -19,13 +15,6 @@ app.post('/scream', FBAuth, postOneScream);
 
 app.post('/sign-up', signUp);
 app.post('/login', logIn);
-
-//Post one scream
-
-
-
-
-
-
+app.post('/user/image',FBAuth, uploadImage);
 
 exports.api = functions.https.onRequest(app);

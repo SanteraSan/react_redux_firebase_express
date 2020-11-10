@@ -19,11 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be0f887e-632f-49d6-aa0a-0bc805449206" name="Default Changelist" comment="validate and authentication" />
+    <list default="true" id="be0f887e-632f-49d6-aa0a-0bc805449206" name="Default Changelist" comment="frome notebook" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Pull.Settings">
+    <option name="BRANCH" value="master" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -61,6 +64,7 @@
       <workItem from="1604682123228" duration="6400000" />
       <workItem from="1604734454883" duration="6698000" />
       <workItem from="1604832820797" duration="5739000" />
+      <workItem from="1604888563127" duration="716000" />
     </task>
     <task id="LOCAL-00001" summary="validate and authentication">
       <created>1604838469460</created>
@@ -69,7 +73,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604838469460</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="frome notebook">
+      <created>1604888635746</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1604888635746</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -89,9 +100,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="validate and authentication" />
-    <option name="LAST_COMMIT_MESSAGE" value="validate and authentication" />
+    <MESSAGE value="frome notebook" />
+    <option name="LAST_COMMIT_MESSAGE" value="frome notebook" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="407" y="173" key="MultipleFileMergeDialog" timestamp="1604888668147">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="407" y="173" key="MultipleFileMergeDialog/0.0.1536.824@0.0.1536.824" timestamp="1604888668147" />
     <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1604838479698">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

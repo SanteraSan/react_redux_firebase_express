@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="be0f887e-632f-49d6-aa0a-0bc805449206" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/dbshema.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/dbshema.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/handle/screams.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/handle/screams.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/handle/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/handle/users.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,7 +63,9 @@
       <workItem from="1604869107154" duration="9201000" />
       <workItem from="1604879761593" duration="147000" />
       <workItem from="1605034086745" duration="6765000" />
-      <workItem from="1605176651840" duration="690000" />
+      <workItem from="1605176651840" duration="849000" />
+      <workItem from="1605344606212" duration="13897000" />
+      <workItem from="1605577427924" duration="3075000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1604860173789</created>
@@ -84,7 +88,14 @@
       <option name="project" value="LOCAL" />
       <updated>1604879857903</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="like, unlike, delete comment">
+      <created>1605178052353</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1605178052353</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,6 +119,7 @@
     <MESSAGE value="Refactoring" />
     <MESSAGE value="upload img" />
     <MESSAGE value="auth user, comment" />
-    <option name="LAST_COMMIT_MESSAGE" value="auth user, comment" />
+    <MESSAGE value="like, unlike, delete comment" />
+    <option name="LAST_COMMIT_MESSAGE" value="like, unlike, delete comment" />
   </component>
 </project>

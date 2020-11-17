@@ -36,7 +36,7 @@ exports.postOneScream = (req, res) => {
         .add(newScreams)
         .then(doc => {
             const resScream = newScreams;
-            resScream.scramId = doc.id;
+            resScream.screamId = doc.id;
             res.json({resScream})
         })
         .catch(err => console.error(err))

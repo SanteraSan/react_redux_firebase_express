@@ -54,7 +54,7 @@ exports.signUp = (req, res) => {
             if (err.code === 'auth/email-already-in-use') {
                 return res.status(400).json({error: 'Адресс почты уже используется'})
             } else {
-                return res.status(500).json({error: err.code})
+                return res.status(500).json({general:'Что-то пошло не так, попробуйте ещё раз'})
             }
         })
 };
@@ -110,7 +110,7 @@ exports.getUserDetails = (req, res) => {
                 return db
                     .collection('screams')
                     .where("userHandle", "==", req.params.handle)
-                    .orderBy("createdAt", "desc")
+                    .orderBy("time", "desc")
                     .get();
             } else {
                 return res.status(404).json({error: "User not found"});

@@ -1,7 +1,7 @@
 let db = {
     users: [
         {
-            userId: 'dh23ggj5h32g543j5gf43',
+            userId: 'GOKtESCC1rRzAkwtD4gAQ09aDdr1',
             email: 'user@email.com',
             handle: 'user',
             createdAt: '2019-03-15T10:59:52.798Z',

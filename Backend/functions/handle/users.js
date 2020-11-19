@@ -24,7 +24,7 @@ exports.signUp = (req, res) => {
     db.doc(`/users/${newUser.handle}`).get()
         .then(doc => {
             if (doc.exists) {
-                return res.status(400).json({handle: 'Такой пользователь уже сцществует'})
+                return res.status(400).json({handle: 'Такой пользователь уже существует'})
             } else {
                 return firebase
                     .auth()
@@ -52,7 +52,7 @@ exports.signUp = (req, res) => {
         .catch(err => {
             console.error(err);
             if (err.code === 'auth/email-already-in-use') {
-                return res.status(400).json({error: 'Адресс почты уже используется'})
+                return res.status(400).json({error: 'Адрес почты уже используется'})
             } else {
                 return res.status(500).json({general:'Что-то пошло не так, попробуйте ещё раз'})
             }
@@ -113,7 +113,7 @@ exports.getUserDetails = (req, res) => {
                     .orderBy("time", "desc")
                     .get();
             } else {
-                return res.status(404).json({error: "User not found"});
+                return res.status(404).json({error: "Пользователь не найден"});
             }
         })
         .then(data => {

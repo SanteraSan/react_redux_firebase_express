@@ -16,7 +16,7 @@ exports.validateSignupData = (newUser =>{
     if(isEmpty(newUser.email)){
         errors.email = 'Поле должно быть заполненно'
     }else if(!isEmail(newUser.email)){
-        errors.email = "Введите корректный адрем почты"
+        errors.email = "Введите корректный адреc почты"
     }
     if (isEmpty(newUser.password)){
         errors.password = 'Поле должно быть заполненно'

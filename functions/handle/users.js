@@ -110,7 +110,7 @@ exports.getUserDetails = (req, res) => {
                 return db
                     .collection('screams')
                     .where("userHandle", "==", req.params.handle)
-                    .orderBy("createdAt", "desc")
+                    .orderBy("time", "desc")
                     .get();
             } else {
                 return res.status(404).json({error: "User not found"});

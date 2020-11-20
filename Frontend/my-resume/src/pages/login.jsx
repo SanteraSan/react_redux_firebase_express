@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
-import {makeStyles} from "@material-ui/core/styles";
+import React, {useEffect, useRef, useState} from 'react';
 import AppLogo from "../uploads/hipster.svg"
+import {Link} from "react-router-dom";
+import PropTypes from 'prop-types';
 //MUI
+import {makeStyles} from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import * as axios from "axios";
-import {Link} from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
+//Redux stuff
+import { connect } from "react-redux"
+import {loginUser} from "../redux/actions/userAction";
 
 
 const useStyles = makeStyles({
@@ -45,42 +48,32 @@ const useStyles = makeStyles({
 });
 
 
-function Login(props) {
-
+const Login =(props)=>{
+    // debugger
     const [state, setState] = useState({
         email: '',
         password: '',
-        loading: false,
         errors: {}
     });
+    const isFirstRun = useRef(true);
+    useEffect (() => {
+        if (isFirstRun.current) {
+            isFirstRun.current = false;
+            return;
+        }
+        setState(prevState => ({
+            ...prevState,
+            errors: props.UI.errors
+        }));
+    }, [props.UI.errors]);
     const classes = useStyles();
     let handleSubmit = (e) => {
         e.preventDefault();
-        setState(prevState => ({
-            ...prevState,
-            loading: true
-        }));
         const userData ={
             email:state.email,
             password:state.password
-        }
-        axios.post('/login',userData)
-            .then(res =>{
-                console.log(res.data);
-                setState(prevState => ({
-                    ...prevState,
-                    loading: false
-                }));
-                props.history.push('/');
-                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-            })
-            .catch(err =>{
-                setState(prevState => ({
-                    ...prevState,
-                    errors: err.response.data,
-                    loading:false
-                }));
-            })
+        };
+        props.loginUser(userData,props.history)
     };
     const handleChange = e => {
         setState(prevState => ({
@@ -89,6 +82,7 @@ function Login(props) {
         }));
     };
     return (
+
         <Grid container className={classes.form}>
             <Grid item sm/>
             <Grid item sm>
@@ -123,9 +117,9 @@ function Login(props) {
                             {state.errors.general}
                         </Typography>
                     )}
-                    <Button className={classes.button} disabled={state.loading} type="submit" variant="contained" color="primary">
+                    <Button className={classes.button} disabled={props.UI.loading} type="submit" variant="contained" color="primary">
                         Войти
-                        {state.loading && (
+                        {props.UI.loading && (
                             <CircularProgress color="primary" className={classes.progress}/>
                         )}
                     </Button>
@@ -137,4 +131,16 @@ function Login(props) {
     );
 }
 
-export default Login;
+Login.propTypes ={
+    classes:PropTypes.object.isRequired,
+    loginUser:PropTypes.func.isRequired,
+    user:PropTypes.object.isRequired,
+    UI:PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    user:state.user,
+    UI:state.UI
+});
+
+export default connect(mapStateToProps,{loginUser})(Login);

@@ -1,4 +1,5 @@
 let db = {
+    httpAPI:'https://us-central1-someprojectnew.cloudfunctions.net/api',
     users: [
         {
             userId: 'GOKtESCC1rRzAkwtD4gAQ09aDdr1',
